@@ -15,5 +15,6 @@ vec3 vec3_unit_vec(vec3 v1);
 float vec3_dot(vec3 v1, vec3 v2);
 vec3 vec3_cross(vec3 v1, vec3 v2);
 vec3 vec3_multiply_num(vec3 v1, float num);
+vec3 vec3_multiply_vec(vec3 v1, vec3 v2);
 
 #endif /*VEC3_H*/

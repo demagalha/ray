@@ -43,4 +43,9 @@ vec3 vec3_multiply_num(vec3 v1, float num) {
 	return v;
 }
 
+vec3 vec3_multiply_vec(vec3 v1, vec3 v2) {
+	vec3 v = { v1.p[0] * v2.p[0], v1.p[1] * v2.p[1], v1.p[2] * v2.p[2] };
+	return v;
+}
+
 

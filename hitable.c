@@ -35,6 +35,7 @@ int world_hit(sphere *spheres, int nums, const RAY *r, float t_min, float t_max,
 			hit_anything = 1;
 			closest_so_far = temp.t;
 			*hit = temp;
+			hit->mat = spheres[i].mat;
 		}
 	}
 	return hit_anything;
