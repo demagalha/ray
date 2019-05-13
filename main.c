@@ -7,62 +7,6 @@
 #include "camera.h"
 
 
-
-float hit_sphere(const vec3 *center, float radius, const RAY *r) {
-	vec3 oc = vec3_minus(r->A, *center);
-	float a = vec3_dot(r->B, r->B);
-	float b = 2.0 * vec3_dot(oc,r->B);
-	float c = vec3_dot(oc, oc) - (radius*radius);
-	float discriminant = b*b - 4*a*c;
-	if (discriminant < 0) {
-		return -1.0;
-	}
-	else {
-		return (-b - sqrt(discriminant) ) / (2.0*a);
-	}
-}
-
-
-
-/*vec3 color(const RAY *r) {
-	vec3 v = {0,0,-1};
-	vec3 vc = {1,0,0}; //color red
-	float t = hit_sphere(&v, 0.5, r);
-	if (t > 0.0) {
-		vec3 N = vec3_unit_vec(vec3_minus(point_at_parameter(r, t),v));
-		vec3 vv = {0.5*(N.p[0]+1), 0.5*(N.p[1]+1), 0.5*(N.p[2]+1)};
-		return vv;
-	}
-		
-	vec3 unit_direction = vec3_unit_vec(r->B);
-	t = 0.5*(unit_direction.p[1] + 1.0);
-	vec3 v1 = {1.0, 1.0, 1.0}; 
-	vec3 v2 = {0.5, 0.7, 1.0};
-	return vec3_add( vec3_multiply_num(v1, 1.0-t), vec3_multiply_num(v2, t));
-}
-*/
-
-//world_hit(sphere *s, int nums, const RAY *r, float t_min, float t_max, hit_record *hit);
-
-/*
-vec3 color(const RAY *r, sphere *spheres, int nums) {
-	hit_record rec;
-	if(world_hit(spheres, nums, r, 0.0, FLT_MAX, &rec)) {
-		//vec3 N = vec3_unit_vec(vec3_minus(point_at_parameter(r, t),v));
-		//vec3 vv = {0.5*(N.p[0]+1), 0.5*(N.p[1]+1), 0.5*(N.p[2]+1)};
-		vec3 v = {0.5*(rec.normal.p[0]+1), 0.5*(rec.normal.p[1]+1), 0.5*(rec.normal.p[2]+1)};
-		return v;
-	}
-	else {
-		vec3 unit_direction = vec3_unit_vec(r->B);
-		float t = 0.5*(unit_direction.p[1] + 1.0);
-		vec3 v1 = {1.0, 1.0, 1.0}; 
-		vec3 v2 = {0.5, 0.7, 1.0};
-		return vec3_add( vec3_multiply_num(v1, 1.0-t), vec3_multiply_num(v2, t));
-	}
-}
-*/		
-
 vec3 color(const RAY *r, sphere *spheres, int nums) {
 	hit_record rec;
 	if(world_hit(spheres, nums, r, 0.001, FLT_MAX, &rec)) {
@@ -112,7 +56,6 @@ camera cam = {origin, lower_left_corner, horizontal, vertical};
 			{
 			float u = (float)(i + (float)rand()/(float)(RAND_MAX/1)) / (float)(nx);
 			float v = (float)(j + (float)rand()/(float)(RAND_MAX/1)) / (float)(ny);
-			//RAY r = {origin, vec3_add(lower_left_corner, vec3_add(vec3_multiply_num(horizontal,u), vec3_multiply_num(vertical,v)))};
 			RAY r = camera_get_ray(&cam, u, v);
 			col = vec3_add(col,color(&r, world, sizeof(world) / sizeof(struct sphere)));
 			}
