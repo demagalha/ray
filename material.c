@@ -8,9 +8,8 @@ int lambertian_scatter(material *mat, RAY r_in, struct hit_record *rec, vec3 *at
 }
 
 vec3 reflect(vec3 v, vec3 n) {
-  /* v - 2 * dot(v, n) * n */
-  vec3 v_ = vec3_minus(v, vec3_multiply_num(n, 2 * vec3_dot(v, n)));
-  return v_;
+  vec3 v = vec3_minus(v, vec3_multiply_num(n, 2 * vec3_dot(v, n)));
+  return v;
 }
 
 int metal_scatter(material *mat, RAY r_in, struct hit_record *rec, vec3 *attenuation, RAY *scattered) {
